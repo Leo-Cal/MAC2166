@@ -1,0 +1,186 @@
+    interação = 1
+    
+    if : #Primeira interação
+     
+     #Com direção préviamente determinada, movimenta os fantasmas
+     for i in range(len(listafantasma)):
+       andou = False
+       while andou == False :
+        if listafantasma[i][2] == DIREITA and not andou :
+           move = extras.cíclico(listafantasma[i][1] + 1, len(lab[1]))           
+           linha = extras.cíclico(listafantasma[i][0], len(lab)) 
+           if lab[linha][move] != PAREDE :
+               andou = True
+               n1 = extras.cíclico(listafantasma[i][0], len(lab))
+               m1 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               n2 = extras.cíclico(listafantasma[i][0], len(lab))
+               m2 = extras.cíclico(listafantasma[i][1] + 1, len(lab[1]))
+               listafantasma[i][0] = n2
+               listafantasma[i][1] = m2
+               print("Fantasma %d moveu-se de (%d, %d) para (%d, %d)"%(i,n1,m1,n2,m2))
+        if listafantasma[i][2] == ESQUERDA and not andou :
+           move = extras.cíclico(listafantasma[i][1] - 1, len(lab[1]))           
+           linha = extras.cíclico(listafantasma[i][0], len(lab))            
+           if lab[linha][move] != PAREDE :     
+               andou = True
+               n1 = extras.cíclico(listafantasma[i][0], len(lab))
+               m1 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               n2 = extras.cíclico(listafantasma[i][0], len(lab))
+               m2 = extras.cíclico(listafantasma[i][1] - 1, len(lab[1]))
+               listafantasma[i][0] = n2
+               listafantasma[i][1] = m2
+               print("Fantasma %d moveu-se de (%d, %d) para (%d, %d)"%(i, n1,m1,n2,m2))
+        if listafantasma[i][2] == CIMA and not andou :
+           move = extras.cíclico(listafantasma[i][0] - 1, len(lab))           
+           coluna = extras.cíclico(listafantasma[i][1], len(lab[1]))           
+           if lab[move][coluna] != PAREDE :
+               andou = True
+               n1 = extras.cíclico(listafantasma[i][0], len(lab))
+               m1 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               n2 = extras.cíclico(listafantasma[i][0] - 1, len(lab))
+               m2 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               listafantasma[i][0] = n2
+               listafantasma[i][1] = m2
+               print("Fantasma %d moveu-se de (%d, %d) para (%d, %d)"%(i,n1,m1,n2,m2))
+        if listafantasma[i][2] == BAIXO and not andou :
+           move = extras.cíclico(listafantasma[i][0] + 1, len(lab))           
+           coluna = extras.cíclico(listafantasma[i][1], len(lab[1]))            
+           if lab[move][coluna] != PAREDE :
+               andou = True
+               n1 = extras.cíclico(listafantasma[i][0], len(lab))
+               m1 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               n2 = extras.cíclico(listafantasma[i][0] + 1, len(lab))
+               m2 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               listafantasma[i][0] = n2
+               listafantasma[i][1] = m2
+               print("Fantasma %d moveu-se de (%d, %d) para (%d, %d)"%(i,n1,m1,n2,m2))
+        if andou == False :
+           direção = random.randrange(0,4)
+           listafantasma[i][2] = direção
+        
+        conta_interação = interação + 1  
+        
+           
+    if  : # Demais interações
+     
+     # Checar se é possível mover fantasma na direção anterior
+     for i in range(len(listafantasma)):
+         possível = False
+         
+   #Se tiver indo pra Direita:         
+         if listafantasma[i][2] == DIREITA:
+           move = extras.cíclico(listafantasma[i][1] + 1, len(lab[1]))           
+           linha = extras.cíclico(listafantasma[i][0], len(lab)) 
+           if lab[linha][move] != PAREDE :
+               possível = True
+           #Se for possível, sorteia outra, mas exclui Esquerda
+           if possível:
+               listafantasma[i][2] = random.randrange(0,4)
+               while listafantasma[i][2] == ESQUERDA:
+                   listafantasma[i][2] = random.randrange(0,4)
+           #Se não for possível, sorteia qualquer outra
+           if not possível:
+               listafantasma[i][2] = random.randrange(0,4)
+        
+   #Se tiver indo pra Esquerda :
+         if listafantasma[i][2] == ESQUERDA:
+           move = extras.cíclico(listafantasma[i][1] - 1, len(lab[1]))           
+           linha = extras.cíclico(listafantasma[i][0], len(lab)) 
+           if lab[linha][move] != PAREDE :
+               possível = True
+           #Se for possível, sorteia outra, mas exclui Direita
+           if possível:
+               listafantasma[i][2] = random.randrange(0,4)
+               while listafantasma[i][2] == DIREITA:
+                   listafantasma[i][2] = random.randrange(0,4)
+           #Se não for possível, sorteia qualquer outra
+           if not possível:
+               listafantasma[i][2] = random.randrange(0,4)
+        
+    #Se tiver indo pra Cima :
+         if listafantasma[i][2] == CIMA:
+           move = extras.cíclico(listafantasma[i][0] - 1, len(lab))           
+           coluna = extras.cíclico(listafantasma[i][1], len(lab[1]))           
+           if lab[move][coluna] != PAREDE :
+               possível = True
+           #Se for possível, sorteia outra, mas exclui Baixo
+           if possível:
+               listafantasma[i][2] = random.randrange(0,4)
+               while listafantasma[i][2] == BAIXO:
+                   listafantasma[i][2] = random.randrange(0,4)
+           #Se não for possível, sorteia qualquer outra
+           if not possível:
+               listafantasma[i][2] = random.randrange(0,4)
+        
+        
+    #Se tiver indo pra Baixo :
+         if listafantasma[i][2] == BAIXO:
+           move = extras.cíclico(listafantasma[i][0] + 1, len(lab))           
+           coluna = extras.cíclico(listafantasma[i][1], len(lab[1]))            
+           if lab[move][coluna] != PAREDE :
+               possível = True
+           #Se for possível, sorteia outra, mas exclui Cima
+           if possível:
+               listafantasma[i][2] = random.randrange(0,4)
+               while listafantasma[i][2] == CIMA:
+                   listafantasma[i][2] = random.randrange(0,4)
+           #Se não for possível, sorteia qualquer outra
+           if not possível:
+               listafantasma[i][2] = random.randrange(0,4)
+        
+  #Decidida a direção, Movimenta os fantasmas      
+     for i in range(len(listafantasma)):
+       andou = False
+       while andou == False :
+        if listafantasma[i][2] == DIREITA and not andou :
+           move = extras.cíclico(listafantasma[i][1] + 1, len(lab[1]))           
+           linha = extras.cíclico(listafantasma[i][0], len(lab)) 
+           if lab[linha][move] != PAREDE :
+               andou = True
+               n1 = extras.cíclico(listafantasma[i][0], len(lab))
+               m1 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               n2 = extras.cíclico(listafantasma[i][0], len(lab))
+               m2 = extras.cíclico(listafantasma[i][1] + 1, len(lab[1]))
+               listafantasma[i][0] = n2
+               listafantasma[i][1] = m2
+               print("Fantasma %d moveu-se de (%d, %d) para (%d, %d)"%(i,n1,m1,n2,m2))
+        if listafantasma[i][2] == ESQUERDA and not andou :
+           move = extras.cíclico(listafantasma[i][1] - 1, len(lab[1]))           
+           linha = extras.cíclico(listafantasma[i][0], len(lab))            
+           if lab[linha][move] != PAREDE :     
+               andou = True
+               n1 = extras.cíclico(listafantasma[i][0], len(lab))
+               m1 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               n2 = extras.cíclico(listafantasma[i][0], len(lab))
+               m2 = extras.cíclico(listafantasma[i][1] - 1, len(lab[1]))
+               listafantasma[i][0] = n2
+               listafantasma[i][1] = m2
+               print("Fantasma %d moveu-se de (%d, %d) para (%d, %d)"%(i, n1,m1,n2,m2))
+        if listafantasma[i][2] == CIMA and not andou :
+           move = extras.cíclico(listafantasma[i][0] - 1, len(lab))           
+           coluna = extras.cíclico(listafantasma[i][1], len(lab[1]))           
+           if lab[move][coluna] != PAREDE :
+               andou = True
+               n1 = extras.cíclico(listafantasma[i][0], len(lab))
+               m1 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               n2 = extras.cíclico(listafantasma[i][0] - 1, len(lab))
+               m2 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               listafantasma[i][0] = n2
+               listafantasma[i][1] = m2
+               print("Fantasma %d moveu-se de (%d, %d) para (%d, %d)"%(i,n1,m1,n2,m2))
+        if listafantasma[i][2] == BAIXO and not andou :
+           move = extras.cíclico(listafantasma[i][0] + 1, len(lab))           
+           coluna = extras.cíclico(listafantasma[i][1], len(lab[1]))            
+           if lab[move][coluna] != PAREDE :
+               andou = True
+               n1 = extras.cíclico(listafantasma[i][0], len(lab))
+               m1 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               n2 = extras.cíclico(listafantasma[i][0] + 1, len(lab))
+               m2 = extras.cíclico(listafantasma[i][1], len(lab[1]))
+               listafantasma[i][0] = n2
+               listafantasma[i][1] = m2
+               print("Fantasma %d moveu-se de (%d, %d) para (%d, %d)"%(i,n1,m1,n2,m2))
+     
+     conta_interação = conta_interação + 1
+     interação = conta_interação
+
